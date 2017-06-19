@@ -26,8 +26,16 @@ function SimpleMarkdown() {
         },
         {
             regex: /(\?\?)(.*)\1/g,
-            replacement: '<cite>$2</cite>'
+            replacement: '<cite>&mdash; $2</cite>'
         },
+        {
+            regex: /(bq\.\s*)(.*)/g,
+            replacement: '<blockquote>$2</blockquote>'
+        },
+        {
+            regex: /{{(.*)}}/g,
+            replacement: '<code>$1</code>'
+        }
     ];
 
     this.render = function(text) {
@@ -39,13 +47,3 @@ function SimpleMarkdown() {
         return text.trim();
     }
 }
-
-$(document).ready(function() {
-    var sm = new SimpleMarkdown();
-
-    $('#convertBtn').click(function() {
-        var input = $('#inputTxt').val();
-        var output = sm.render(input);
-        $('#outputTxt').val(output);
-    });
-});
