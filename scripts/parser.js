@@ -35,6 +35,14 @@ function SimpleMarkdown() {
         {
             regex: /{{(.*)}}/g,
             replacement: '<code>$1</code>'
+        },
+        {
+            regex: /{quote}((.|\n)*){quote}/g,
+            replacement: blockquote
+        },
+        {
+            regex: /{color:(.*)}((.|\n)*?){color}/g,
+            replacement: changeColor
         }
     ];
 
@@ -46,4 +54,31 @@ function SimpleMarkdown() {
 
         return text.trim();
     }
+
+    function blockquote(match, p1) {
+        var lines = p1.split('\n');
+        var result = '<blockquote>\n';
+        lines.forEach(function(line) {
+            if (line !== '') {
+                result += '  <p>' + line.trim() + '</p>\n';
+            }
+        });
+
+        result += '</blockquote>';
+
+        return result;
+    }
+
+    function changeColor(match, p1, p2) {
+        var color = p1;
+        var lines = p2.split('\n');
+        var result = '';
+        lines.forEach(function(line) {
+            if (line !== '') {
+                result += '<p style="color:' + color + '">' + line.trim() + '</p>\n';
+            }
+        });
+
+        return result;
+    } 
 }
