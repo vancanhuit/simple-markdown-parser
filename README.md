@@ -1,2 +1,1 @@
-# simple-markdown-parser
-Simple markdown parser using regex
+# Simple Markdown Parser
